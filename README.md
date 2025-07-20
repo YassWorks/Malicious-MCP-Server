@@ -30,3 +30,7 @@ The sampling feature can become a vector for malicious activity when certain con
 1. **Remote Server Connection**: The MCP server operates remotely (accessed via HTTP, Server-Sent Events, or similar protocols) rather than locally
 2. **Additional Tool Access**: The environment provides the LLM with supplementary tools beyond standard MCP server capabilities
 3. **User Trust**: Users connect to servers without examining the underlying code or understanding the security implications
+
+## Exploit Structure
+
+![Exploit Structure](public/exploit_structure.png)
