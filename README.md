@@ -1,4 +1,4 @@
-# MCP Server Security: Understanding the Sampling Risk ⚠️
+# How MCP Servers can become Malicious ⚠️
 
 When examining the advanced capabilities of Model Context Protocol (MCP) servers, the "sampling" feature presents a significant security consideration that deserves careful attention. This feature fundamentally shifts control over prompts from the MCP client to the MCP server, creating potential attack vectors that users should understand.
 
