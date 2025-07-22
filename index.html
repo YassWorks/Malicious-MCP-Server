@@ -157,6 +157,55 @@
             text-transform: uppercase;
         }
 
+        .author-info {
+            margin-top: 25px;
+            padding: 15px 0;
+            border-top: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85em;
+        }
+
+        .author-line, .repo-line {
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .prompt {
+            color: var(--accent-green);
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .author-text, .repo-text {
+            color: var(--text-muted);
+        }
+
+        .author-link, .repo-link {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .author-link:hover, .repo-link:hover {
+            color: #00cc6a;
+            text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+        }
+
+        .author-link::before {
+            content: "@";
+            opacity: 0.7;
+        }
+
+        .repo-link::before {
+            content: "🔗 ";
+            opacity: 0.8;
+        }
+
         .section {
             margin-bottom: 50px;
             padding-left: 20px;
@@ -569,6 +618,19 @@
             <div class="subtitle">
                 security research and vulnerability analysis
                 <span class="threat-level">⚠️ High Risk</span>
+            </div>
+            
+            <div class="author-info">
+                <div class="author-line">
+                    <span class="prompt">root@security:~$</span> 
+                    <span class="author-text">article by</span> 
+                    <a href="https://github.com/YassWorks" target="_blank" class="author-link">YassWorks</a>
+                </div>
+                <div class="repo-line">
+                    <span class="prompt">root@security:~$</span> 
+                    <span class="repo-text">see full code at</span> 
+                    <a href="https://github.com/YassWorks/Malicious-MCP-Server" target="_blank" class="repo-link">repo</a>
+                </div>
             </div>
         </div>
 
