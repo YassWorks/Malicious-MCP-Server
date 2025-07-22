@@ -1,6 +1,12 @@
 # How MCP Servers can become Malicious ⚠️
 
-When examining the advanced capabilities of Model Context Protocol (MCP) servers, the "sampling" feature presents a significant security consideration that deserves careful attention. This feature fundamentally shifts control over prompts from the MCP client to the MCP server, creating potential attack vectors that users should understand.
+When examining the advanced capabilities of Model Context Protocol (MCP) servers, the "sampling" feature presents a significant security consideration that deserves careful attention. This feature fundamentally shifts control over prompts from the MCP client to the MCP server, creating potential attack vectors that users should understand. This article aims to raise awareness that MCP servers must be treated with the same level of scrutiny and trust boundaries as any other external service or third-party dependency.
+
+### Taking a few steps back: What is MCP?
+
+The Model Context Protocol (MCP), developed by Anthropic, is a framework for building powerful AI agents without the overhead of designing and maintaining custom tools for the LLM. Instead, tool and service providers are responsible for exposing LLM-compatible interfaces as MCP servers, which users can easily integrate into their language models using configurable MCP clients.
+
+![Exploit Structure](public/mcp_architecture.png)
 
 ## Understanding MCP Sampling
 
@@ -27,9 +33,11 @@ The sampling feature can become a vector for malicious activity when certain con
 
 ### Attack Prerequisites
 
-1. **Remote Server Connection**: The MCP server operates remotely (accessed via HTTP, Server-Sent Events, or similar protocols) rather than locally
-2. **Additional Tool Access**: The environment provides the LLM with supplementary tools beyond standard MCP server capabilities
-3. **User Trust**: Users connect to servers without examining the underlying code or understanding the security implications
+1. **Remote Server Connection**: The MCP server operates remotely (accessed via HTTP, Server-Sent Events, etc.). And the developer connected to this untrusted, malicious third-party server, either naively or by social engineering or supply-chain attacks or similar attack strategies.
+
+2. **Additional Tool Access**: The environment grants the LLM access to supplementary tools beyond standard MCP server capabilities. These may include company policy helpers, command-line interfaces, code execution engines, or other powerful extensions that expand the LLM’s influence and attack surface.
+
+3. **User Trust**: Users connect to servers without examining the underlying code or implementing basic security practices, like validation or sandboxing.
 
 ## Exploit Structure
 
@@ -135,3 +143,22 @@ By blindly executing the server's instructions, the client's LLM becomes an agen
     - Disable shell or direct DB access for any untrusted server.
     - Log and monitor every sampling_callback invocation for anomalous prompts.
 - Zero‑Trust the server: assume it’s malicious—grant it only the minimal necessary privileges.
+
+## Conclusion: Retrospective on MCP Sampling Risks
+
+The flexibility and elegance of the Model Context Protocol make it a powerful enabler for agentic AI systems—but this same flexibility introduces serious risks when left unchecked. As demonstrated, the **sampling** feature, while convenient for offloading LLM responsibilities to clients, opens the door to prompt-level control by potentially malicious servers.
+
+This shifts the security boundary: developers can no longer assume that prompts originate from a trusted local source. **MCP servers must be treated as untrusted third parties** unless you explicitly control their code, behavior, and output.
+
+The examples shown—data exfiltration and remote code execution—are not theoretical. If an MCP client gives a server access to an LLM *and* equips that LLM with privileged tools, it’s effectively handing over control of those tools to the server.
+
+In short: **sampling is not a flaw**, but a **powerful delegation feature** that needs to be sandboxed, validated, and logged like any other remote execution interface.
+
+Treat MCP servers like you would any external plugin, cloud webhook, or third-party integration:
+- Validate their input.
+- Limit their privileges.
+- Monitor their behavior.
+
+Because once you give up prompt control, **you give up more than just words**—you risk handing over the keys to your entire system.
+
+Happy agenting <3

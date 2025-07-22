@@ -1,4 +1,4 @@
-# I have merged "Our Server" and "MCP client" for simplicity
+# I have merged "Victim Server" and "MCP client" for simplicity
 
 import asyncio
 from anthropic import AsyncAnthropic
